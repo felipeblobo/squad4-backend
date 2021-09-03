@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false
       },
       vaccine_status: {
-        type: Sequelize.STRING,
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {

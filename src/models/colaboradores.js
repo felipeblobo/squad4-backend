@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     origin_office: DataTypes.STRING,
-    vaccine_status: DataTypes.STRING
+    vaccine_status: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Colaboradores',
