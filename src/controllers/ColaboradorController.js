@@ -1,6 +1,5 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
-const moment = require("moment");
 const sequelize = require("sequelize");
 
 class ColaboradorController {
@@ -14,7 +13,7 @@ class ColaboradorController {
   }
 
   static async colaboradoresPorData(req, res) {
-    const dateToQuery = '2021-09-02';
+    const dateToQuery = '2021-09-03';
     try {
       const colaboradoresAgendados =
         await database.Colaboradores.findAndCountAll({
