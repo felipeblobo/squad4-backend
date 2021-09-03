@@ -5,5 +5,6 @@ const routes = express.Router();
 
 routes.get('/colaboradores', ColaboradorController.listarColaboradores);
 routes.get('/colaboradores/:id', ColaboradorController.colaboradorPorId);
+routes.post('/colaboradores', ColaboradorController.cadastraColaborador);
 
 module.exports = routes;
