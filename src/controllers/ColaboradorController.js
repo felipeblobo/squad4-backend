@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 const sequelize = require("sequelize");
 
-
 class ColaboradorController {
   static async listarColaboradores(req, res) {
     try {
@@ -15,15 +14,16 @@ class ColaboradorController {
   }
 
   static async colaboradoresPorData(req, res) {
-    const dateToQuery = "2021-09-02";
+    const dateToQuery = '2021-09-02';
     try {
-      const colaboradoresAgendados = await database.Colaboradores.findAll({
-        where: sequelize.where(
-          sequelize.fn("date", sequelize.col("createdAt")),
-          "=",
-          dateToQuery
-        ),
-      });
+      const colaboradoresAgendados =
+        await database.Colaboradores.findAndCountAll({
+          where: sequelize.where(
+            sequelize.fn("date", sequelize.col("createdAt")),
+            "=",
+            dateToQuery
+          ),
+        });
       return res.status(200).json(colaboradoresAgendados);
     } catch (error) {
       return res.status(500).json(error.message);
@@ -46,17 +46,19 @@ class ColaboradorController {
     const novoColaborador = req.body;
     const senha = req.body.password;
     const senhaElaborada = await bcrypt.hash(senha, 10);
-    try {
-      const colaboradorComSenhaEncriptada = {
-        ...novoColaborador,
-        password: senhaElaborada,
-      };
-      const colaborador = await database.Colaboradores.create(
-        colaboradorComSenhaEncriptada
-      );
-      return res.status(201).json(colaborador);
-    } catch (error) {
-      return res.status(500).json(error.message);
+    
+      try {
+        const colaboradorComSenhaEncriptada = {
+          ...novoColaborador,
+          password: senhaElaborada,
+        };
+        const colaborador = await database.Colaboradores.create(
+          colaboradorComSenhaEncriptada
+        );
+        return res.status(201).json(colaborador);
+      } catch (error) {
+        return res.status(500).json(error.message);
+      
     }
   }
 }
