@@ -1,5 +1,6 @@
 const database = require("../models");
 const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 
 class AgendamentoController {
   static async listaAgendamentos(req, res) {
@@ -26,17 +27,21 @@ class AgendamentoController {
   static async cadastraAgendamento(req, res) {
     const novoAgendamento = req.body;
     const dataDaSolicitacaoDeAgendamento = req.body.date;
+    const escritorio = req.body.office;
 
     const agendamentosEmDeterminadaData =
     await database.Agendamentos.findAndCountAll({
-      where: sequelize.where(
-        sequelize.fn("date", sequelize.col("date")),
-        "=",
-        dataDaSolicitacaoDeAgendamento
-      ),
+      where: {
+        [Op.and]: [
+          { date: dataDaSolicitacaoDeAgendamento },
+          { office: escritorio }
+        ]
+      }
     });
 
-    if (agendamentosEmDeterminadaData.count < 3) {
+    const capacidadeDoEscritorio = escritorio === "Santos" ? 40 : 240;
+
+    if (agendamentosEmDeterminadaData.count <= capacidadeDoEscritorio) {
       try {
         const agendamento = await database.Agendamentos.create(novoAgendamento);
         return res.status(201).json(agendamento);
@@ -83,11 +88,11 @@ class AgendamentoController {
       try {
         const agendamentosEmDeterminadaData =
           await database.Agendamentos.findAndCountAll({
-            where: sequelize.where(
-              sequelize.fn("date", sequelize.col("date")),
-              "=",
-              dateToQuery
-            ),
+            where: {
+              date: {
+                [Op.eq]: dateToQuery
+              }
+            }
           });
         return res.status(200).json(agendamentosEmDeterminadaData);
       } catch (error) {
