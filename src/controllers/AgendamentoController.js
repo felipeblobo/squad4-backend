@@ -29,8 +29,9 @@ class AgendamentoController {
     const dataDaSolicitacaoDeAgendamento = req.body.date;
     const escritorio = req.body.office;
     const colaborador = req.body.colaborador_id;
+    const workstation = req.body.workstation;
 
-    const verificaSeUsuarioJaAgendouNestaData = await database.Agendamentos.findAll({
+    const UsuarioJaAgendouNestaData = await database.Agendamentos.findAll({
       where: {
         [Op.and]: [
           { date: dataDaSolicitacaoDeAgendamento },
@@ -39,9 +40,21 @@ class AgendamentoController {
       }
     });
 
-    if (verificaSeUsuarioJaAgendouNestaData.length > 0) {
-      console.log(verificaSeUsuarioJaAgendouNestaData.length)
+    if (UsuarioJaAgendouNestaData.length > 0) {
       return res.status(500).json({mensagem: "O usuário já agendou para data solicitada."})
+    }
+
+    const workstationOcupada = await database.Agendamentos.findAll({
+      where: {
+        [Op.and]: [
+          { date: dataDaSolicitacaoDeAgendamento },
+          { workstation: workstation }
+        ]
+      }
+    });
+
+    if (workstationOcupada.length > 0) {
+      return res.status(500).json({mensagem: "Esta estação de trabalho já foi reservada."})
     }
 
     const agendamentosEmDeterminadaData =
@@ -50,7 +63,7 @@ class AgendamentoController {
         [Op.and]: [
           { date: dataDaSolicitacaoDeAgendamento },
           { office: escritorio }
-        ]
+        ]        
       }
     });
 
