@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const sequelize = require("sequelize");
 
 class ColaboradorController {
-  static async listarColaboradores(req, res) {
+  static async listaColaboradores(req, res) {
     try {
       const todosOsColaboradores = await database.Colaboradores.findAll();
       return res.status(200).json(todosOsColaboradores);
