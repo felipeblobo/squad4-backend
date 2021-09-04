@@ -10,8 +10,8 @@ routes.post('/colaboradores', ColaboradorController.cadastraColaborador);
 routes.get('/colabdata', ColaboradorController.colaboradoresPorData);
 
 routes.get('/agendamentos', AgendamentoController.listaAgendamentos);
-routes.get('/agendamentos/:id', AgendamentoController.listaAgendamentoPorIdDoColaborador);
+routes.get('/agendamentos/colaborador/:id', AgendamentoController.listaAgendamentosPorIdDoColaborador);
 routes.post('/agendamentos', AgendamentoController.cadastraAgendamento);
-
+routes.patch('/agendamentos/:id', AgendamentoController.atualizaAgendamento);
 
 module.exports = routes;
