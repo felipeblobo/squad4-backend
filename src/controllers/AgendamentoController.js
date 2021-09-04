@@ -1,4 +1,5 @@
 const database = require("../models");
+const sequelize = require("sequelize");
 
 class AgendamentoController {
   static async listaAgendamentos(req, res) {
@@ -24,12 +25,27 @@ class AgendamentoController {
 
   static async cadastraAgendamento(req, res) {
     const novoAgendamento = req.body;
-    try {
-      const agendamento = await database.Agendamentos.create(novoAgendamento);
-      return res.status(201).json(agendamento);
-    } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível realizar este agendamento."});
-    }
+    const dataDaSolicitacaoDeAgendamento = req.body.date;
+
+    const agendamentosEmDeterminadaData =
+    await database.Agendamentos.findAndCountAll({
+      where: sequelize.where(
+        sequelize.fn("date", sequelize.col("date")),
+        "=",
+        dataDaSolicitacaoDeAgendamento
+      ),
+    });
+
+    if (agendamentosEmDeterminadaData.count < 3) {
+      try {
+        const agendamento = await database.Agendamentos.create(novoAgendamento);
+        return res.status(201).json(agendamento);
+      } catch (error) {
+        return res.status(500).json({mensagem: "Não foi possível realizar este agendamento."});
+      }
+    } else {
+      return res.status(500).json({mensagem: "Não há mais vagas disponível para o dia solicitado."})
+    }   
   }
 
   static async atualizaAgendamento(req, res) {
@@ -60,6 +76,27 @@ class AgendamentoController {
       return res.status(500).json({mensagem: "Não foi possível deletar este agendamento."});
     }
     }
+
+
+    static async agendamentosPorData(req, res) {
+      const dateToQuery = '2021-09-07';
+      try {
+        const agendamentosEmDeterminadaData =
+          await database.Agendamentos.findAndCountAll({
+            where: sequelize.where(
+              sequelize.fn("date", sequelize.col("date")),
+              "=",
+              dateToQuery
+            ),
+          });
+        return res.status(200).json(agendamentosEmDeterminadaData);
+      } catch (error) {
+        return res.status(500).json(error.message);
+      }
+    }
+
+
+
   }
 
 module.exports = AgendamentoController;

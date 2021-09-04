@@ -1,6 +1,6 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
-const sequelize = require("sequelize");
+
 
 class ColaboradorController {
   static async listaColaboradores(req, res) {
@@ -8,26 +8,10 @@ class ColaboradorController {
       const todosOsColaboradores = await database.Colaboradores.findAll();
       return res.status(200).json(todosOsColaboradores);
     } catch (error) {
-      return res.status(500).json("Não foi possível listar os colaboradores.");
+      return res.status(500).json({mensagem: "Não foi possível listar os colaboradores."});
     }
   }
 
-  static async colaboradoresPorData(req, res) {
-    const dateToQuery = '2021-09-03';
-    try {
-      const colaboradoresAgendados =
-        await database.Colaboradores.findAndCountAll({
-          where: sequelize.where(
-            sequelize.fn("date", sequelize.col("createdAt")),
-            "=",
-            dateToQuery
-          ),
-        });
-      return res.status(200).json(colaboradoresAgendados);
-    } catch (error) {
-      return res.status(500).json(error.message);
-    }
-  }
 
   static async colaboradorPorId(req, res) {
     const { id } = req.params;
