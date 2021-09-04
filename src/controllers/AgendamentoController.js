@@ -28,6 +28,21 @@ class AgendamentoController {
     const novoAgendamento = req.body;
     const dataDaSolicitacaoDeAgendamento = req.body.date;
     const escritorio = req.body.office;
+    const colaborador = req.body.colaborador_id;
+
+    const verificaSeUsuarioJaAgendouNestaData = await database.Agendamentos.findAll({
+      where: {
+        [Op.and]: [
+          { date: dataDaSolicitacaoDeAgendamento },
+          { colaborador_id: colaborador }
+        ]
+      }
+    });
+
+    if (verificaSeUsuarioJaAgendouNestaData.length > 0) {
+      console.log(verificaSeUsuarioJaAgendouNestaData.length)
+      return res.status(500).json({mensagem: "O usuário já agendou para data solicitada."})
+    }
 
     const agendamentosEmDeterminadaData =
     await database.Agendamentos.findAndCountAll({
