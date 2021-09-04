@@ -8,7 +8,7 @@ class ColaboradorController {
       const todosOsColaboradores = await database.Colaboradores.findAll();
       return res.status(200).json(todosOsColaboradores);
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json("Não foi possível listar os colaboradores.");
     }
   }
 
@@ -37,7 +37,7 @@ class ColaboradorController {
       });
       return res.status(200).json(colaborador);
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json({mensagem: "Não foi possível localizar este colaborador."});
     }
   }
 
@@ -56,7 +56,7 @@ class ColaboradorController {
         );
         return res.status(201).json(colaborador);
       } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json({mensagem: "Não foi possível cadastrar este colaborador."});
       
     }
   }
