@@ -1,5 +1,4 @@
 const database = require("../models");
-const sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
 class AgendamentoController {
@@ -48,7 +47,8 @@ class AgendamentoController {
       where: {
         [Op.and]: [
           { date: dataDaSolicitacaoDeAgendamento },
-          { workstation: workstation }
+          { workstation: workstation },
+          { office: escritorio }
         ]
       }
     });
