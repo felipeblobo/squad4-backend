@@ -1,18 +1,21 @@
-const express = require('express');
-const ColaboradorController = require('./controllers/ColaboradorController');
-const AgendamentoController = require('./controllers/AgendamentoController');
+const express = require("express");
+const UserController = require("./controllers/UserController");
+const SchedulingController = require("./controllers/SchedulingController");
 
 const routes = express.Router();
 
-routes.get('/colaboradores', ColaboradorController.listaColaboradores);
-routes.get('/colaboradores/:id', ColaboradorController.colaboradorPorId);
-routes.post('/colaboradores', ColaboradorController.cadastraColaborador);
+routes.get("/colaboradores", UserController.listUsers);
+routes.get("/colaboradores/:id", UserController.userById);
+routes.post("/colaboradores", UserController.userRegistration);
 
-routes.get('/agendamentos', AgendamentoController.listaAgendamentos);
-routes.get('/agendamentos/colaborador/:id', AgendamentoController.listaAgendamentosPorIdDoColaborador);
-routes.get('/agendamentos/data', AgendamentoController.agendamentosPorData);
-routes.post('/agendamentos', AgendamentoController.cadastraAgendamento);
-routes.put('/agendamentos/:id', AgendamentoController.atualizaAgendamento);
-routes.delete('/agendamentos/:id', AgendamentoController.deletaAgendamento);
+routes.get("/agendamentos", SchedulingController.listScheduling);
+routes.get(
+  "/agendamentos/colaborador/:id",
+  SchedulingController.listSchedulingByUserId,
+);
+routes.get("/agendamentos/data", SchedulingController.schedulingByDate);
+routes.post("/agendamentos", SchedulingController.registerScheduling);
+routes.put("/agendamentos/:id", SchedulingController.updateScheduling);
+routes.delete("/agendamentos/:id", SchedulingController.deleteScheduling);
 
 module.exports = routes;
