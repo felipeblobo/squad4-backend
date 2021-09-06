@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      "Colaboradores",
+      "Users",
       [
         {
           name: "João Ninguém",
@@ -11,6 +11,7 @@ module.exports = {
           password: "senha",
           origin_office: "Santos",
           vaccine_status: true,
+          pwd: "deficiente físico",
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -20,6 +21,7 @@ module.exports = {
           password: "senha",
           origin_office: "São Paulo",
           vaccine_status: false,
+          pwd: "não",
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -29,6 +31,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("Colaboradores", null, {});
+    await queryInterface.bulkDelete("Users", null, {});
   },
 };
