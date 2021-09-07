@@ -1,2 +1,2 @@
 # squad4-backend
-Repositório do Backend do desafio do Programa de Formação da FCamara
+FCamara Training Program Challenge Backend Repository
