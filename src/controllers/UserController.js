@@ -45,6 +45,28 @@ class UserController {
         .json({ mensagem: "Não foi possível cadastrar este colaborador." });
     }
   }
+
+  static async login(req, res) {
+    const { email, password } = req.body;
+    try {
+      const user = await database.Users.findOne({
+        where: { email }
+      });
+      bcrypt.compare(password,user.dataValues.password, (err, data) => {
+
+        if (err) throw err;
+
+        if (data) {
+            return res.status(200).json(user);
+        } else {
+            return res.status(401).json({ mensagem: "Senha ou login inválidos!"  })
+        }})
+    } catch (error) {
+      return res
+        .status(401)
+        .json({ mensagem: "Senha ou login inválidos!" });
+    }
+  }
 }
 
 module.exports = UserController;

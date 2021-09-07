@@ -7,6 +7,7 @@ const routes = express.Router();
 routes.get("/colaboradores", UserController.listUsers);
 routes.get("/colaboradores/:id", UserController.userById);
 routes.post("/colaboradores", UserController.userRegistration);
+routes.post("/login", UserController.login);
 
 routes.get("/agendamentos", SchedulingController.listScheduling);
 routes.get(
