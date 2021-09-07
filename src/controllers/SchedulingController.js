@@ -99,6 +99,7 @@ class SchedulingController {
 
 
   static async deleteScheduling (req, res) {
+    
     const { id } = req.params;
     try {
       await database.Scheduling.destroy({

@@ -16,7 +16,15 @@ module.exports = (sequelize, DataTypes) => {
   Users.init(
     {
       name: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: {
+            args: true,
+            msg: "Email de tipo inválido!"  
+          }
+        }
+      },
       password: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
       role: DataTypes.STRING,
