@@ -1,5 +1,7 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 class UserController {
   static async listUsers(req, res) {
@@ -57,7 +59,16 @@ class UserController {
         if (err) throw err;
 
         if (data) {
-            return res.status(200).json(user);
+            const token = jwt.sign({
+              id: user.dataValues.id,
+              email: user.dataValues.email
+            }, process.env.JWT_KEY, {
+              expiresIn: "6h"
+            })
+            return res.status(200).json({
+              mensagem: 'Login feito com sucesso',
+              token
+            });
         } else {
             return res.status(401).json({ mensagem: "Senha ou login inválidos!"  })
         }})
