@@ -9,14 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Scheduling, {
-        foreignKey: "users_id",
+        foreignKey: "user_id",
       });
     }
   }
   Users.init(
     {
       name: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: {
+            args: true,
+            msg: "Email de tipo inválido!"  
+          }
+        }
+      },
       password: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
       role: DataTypes.STRING,

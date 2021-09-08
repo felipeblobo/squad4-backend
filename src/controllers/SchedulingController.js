@@ -27,7 +27,7 @@ class SchedulingController {
     const newScheduling = req.body;
     const dateScheduling = req.body.date;
     const office = req.body.office;
-    const user = req.body.colaborador_id;
+    const user = req.body.user_id;
     const workstation = req.body.workstation;
 
     const BusySchedule = await database.Scheduling.findAll({
@@ -99,6 +99,7 @@ class SchedulingController {
 
 
   static async deleteScheduling (req, res) {
+    
     const { id } = req.params;
     try {
       await database.Scheduling.destroy({
