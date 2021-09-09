@@ -64,15 +64,21 @@ class UserController {
 
   static async login(req, res) {
     const { email, password } = req.body;
-    console.log(req.body)
     try {
+      const returningUser = await database.Users.findOne({
+        attributes: {exclude: ['password', 'isAdmin', 'createdAt', 'updatedAt']},
+        where: { email }
+      });
+      
+
       const user = await database.Users.findOne({
         where: { email }
       });
+      
       bcrypt.compare(password,user.dataValues.password, (err, data) => {
 
         if (err) throw err;
-        console.log(data)
+       
         if (data) {
             const token = jwt.sign({
               id: user.dataValues.id,
@@ -82,7 +88,8 @@ class UserController {
             })
             return res.status(200).json({
               mensagem: 'Login feito com sucesso',
-              token
+              token,
+              returningUser
             });
         } else {
             return res.status(401).json({ mensagem: "Senha ou login inválidos!"  })
