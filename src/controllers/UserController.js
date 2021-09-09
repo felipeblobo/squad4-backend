@@ -64,6 +64,7 @@ class UserController {
 
   static async login(req, res) {
     const { email, password } = req.body;
+    console.log(req.body)
     try {
       const user = await database.Users.findOne({
         where: { email }
@@ -71,7 +72,7 @@ class UserController {
       bcrypt.compare(password,user.dataValues.password, (err, data) => {
 
         if (err) throw err;
-
+        console.log(data)
         if (data) {
             const token = jwt.sign({
               id: user.dataValues.id,
