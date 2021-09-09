@@ -1,13 +1,19 @@
 const database = require("../models");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { RegisterConfirmation } = require("../utils/Emails");
+
+function addressGeneration(route, id) {
+  const baseURL = "localhost:8080";
+  return `${baseURL}${route}${id}`;
+}
 
 class UserController {
   static async listUsers(req, res) {
     try {
       const allUsers = await database.Users.findAll({
-        attributes: {exclude: ['password']}
+        attributes: { exclude: ["password"] },
       });
       return res.status(200).json(allUsers);
     } catch (error) {
@@ -21,7 +27,7 @@ class UserController {
     const { id } = req.params;
     try {
       const user = await database.Users.findOne({
-        attributes: {exclude: ['password']},
+        attributes: { exclude: ["password"] },
         where: { id: Number(id) },
       });
       return res.status(200).json(user);
@@ -44,8 +50,8 @@ class UserController {
 
     if (emailAlreadyExists) {
       return res
-      .status(500)
-      .json({ mensagem: "Este email já existe em nosso cadastro." });
+        .status(500)
+        .json({ mensagem: "Este email já existe em nosso cadastro." });
     }
 
     try {
@@ -53,8 +59,13 @@ class UserController {
         ...newUser,
         password: encryptedPassword,
       };
-      await database.Users.create(userWithEncryptedPassword);
-      return res.status(201).json({messagem: "Usuário cadastrado com sucesso!"});
+      const user = await database.Users.create(userWithEncryptedPassword);
+      const address = addressGeneration("/colaboradores/verificacao/", user.id);
+      const emailVerification = new RegisterConfirmation(user, address);
+      emailVerification.sendEmail().catch(console.log);
+      return res
+        .status(201)
+        .json({ messagem: "Usuário cadastrado com sucesso!" });
     } catch (error) {
       return res
         .status(500)
@@ -62,42 +73,70 @@ class UserController {
     }
   }
 
+  static async modifyUserWithVerifiedEmail(req, res) {
+    const { id } = req.params;
+    try {
+      const user = await database.Users.findOne({
+        attributes: { exclude: ["password"] },
+        where: { id: Number(id) },
+      });
+      await database.Users.update(
+        { ...user, isVerified: true }, {
+          where: { id: Number(id) },
+        }
+      );
+      const userUpdated = await database.Users.findOne({
+        where: { id: Number(user.id) },
+      });
+      return res.status(200).json(userUpdated);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ mensagem: "Não foi possível verificar este usuário." });
+    }
+  }
+
   static async login(req, res) {
     const { email, password } = req.body;
     try {
       const returningUser = await database.Users.findOne({
-        attributes: {exclude: ['password', 'isAdmin', 'createdAt', 'updatedAt']},
-        where: { email }
+        attributes: {
+          exclude: ["password", "isAdmin", "createdAt", "updatedAt"],
+        },
+        where: { email },
       });
-      
 
       const user = await database.Users.findOne({
-        where: { email }
+        where: { email },
       });
-      
-      bcrypt.compare(password,user.dataValues.password, (err, data) => {
 
+      bcrypt.compare(password, user.dataValues.password, (err, data) => {
         if (err) throw err;
-       
+
         if (data) {
-            const token = jwt.sign({
+          const token = jwt.sign(
+            {
               id: user.dataValues.id,
-              email: user.dataValues.email
-            }, process.env.JWT_KEY, {
-              expiresIn: "6h"
-            })
-            return res.status(200).json({
-              mensagem: 'Login feito com sucesso',
-              token,
-              returningUser
-            });
+              email: user.dataValues.email,
+            },
+            process.env.JWT_KEY,
+            {
+              expiresIn: "6h",
+            }
+          );
+          return res.status(200).json({
+            mensagem: "Login feito com sucesso",
+            token,
+            returningUser,
+          });
         } else {
-            return res.status(401).json({ mensagem: "Senha ou login inválidos!"  })
-        }})
+          return res
+            .status(401)
+            .json({ mensagem: "Senha ou login inválidos!" });
+        }
+      });
     } catch (error) {
-      return res
-        .status(401)
-        .json({ mensagem: "Senha ou login inválidos!" });
+      return res.status(401).json({ mensagem: "Senha ou login inválidos!" });
     }
   }
 }

@@ -9,6 +9,7 @@ routes.get("/colaboradores", login, UserController.listUsers);
 routes.get("/colaboradores/:id", login, UserController.userById);
 routes.post("/colaboradores", UserController.userRegistration);
 routes.post("/login", UserController.login);
+routes.get("/colaboradores/verificacao/:id", UserController.modifyUserWithVerifiedEmail);
 
 routes.get("/agendamentos", login, SchedulingController.listScheduling);
 routes.get(
