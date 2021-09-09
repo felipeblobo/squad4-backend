@@ -5,7 +5,7 @@ require("dotenv").config();
 const { RegisterConfirmation } = require("../utils/Emails");
 
 function addressGeneration(route, id) {
-  const baseURL = "localhost:8080";
+  const baseURL = "http://localhost:8080";
   return `${baseURL}${route}${id}`;
 }
 
@@ -62,6 +62,7 @@ class UserController {
       const user = await database.Users.create(userWithEncryptedPassword);
       const address = addressGeneration("/colaboradores/verificacao/", user.id);
       const emailVerification = new RegisterConfirmation(user, address);
+      console.log(emailVerification);
       emailVerification.sendEmail().catch(console.log);
       return res
         .status(201)
@@ -109,6 +110,12 @@ class UserController {
       const user = await database.Users.findOne({
         where: { email },
       });
+
+      if(user.isVerified === false){
+        return res
+        .status(500)
+        .json({ mensagem: "Você não confirmou seu cadastro! Verifique seu email." });
+      }
 
       bcrypt.compare(password, user.dataValues.password, (err, data) => {
         if (err) throw err;
