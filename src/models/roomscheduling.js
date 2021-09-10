@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class OfficeScheduling extends Model {
+  class RoomScheduling extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,14 +15,15 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   };
-  OfficeScheduling.init({
+  RoomScheduling.init({
     date: DataTypes.DATEONLY,
     time_zone: DataTypes.INTEGER,
     room: DataTypes.STRING,
     office: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'OfficeScheduling',
+    modelName: 'RoomScheduling',
+    freezeTableName: true
   });
-  return OfficeScheduling;
+  return RoomScheduling;
 };

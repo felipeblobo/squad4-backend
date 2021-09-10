@@ -2,6 +2,7 @@ const express = require("express");
 const UserController = require("./controllers/UserController");
 const SchedulingController = require("./controllers/SchedulingController");
 const login = require('./middlewares/login');
+const RoomSchedulingController = require("./controllers/RoomSchedulingController");
 
 const routes = express.Router();
 
@@ -20,5 +21,8 @@ routes.get("/agendamentos/data", login, SchedulingController.schedulingByDate);
 routes.post("/agendamentos", login, SchedulingController.registerScheduling);
 routes.put("/agendamentos/:id", login, SchedulingController.updateScheduling);
 routes.delete("/agendamentos/:id", login, SchedulingController.deleteScheduling);
+
+routes.get("/reunioes", RoomSchedulingController.listRoomScheduling);
+routes.post("/reunioes", RoomSchedulingController.registerOfficeScheduling);
 
 module.exports = routes;
