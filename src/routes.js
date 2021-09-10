@@ -24,5 +24,7 @@ routes.delete("/agendamentos/:id", login, SchedulingController.deleteScheduling)
 
 routes.get("/reunioes", RoomSchedulingController.listRoomScheduling);
 routes.post("/reunioes", RoomSchedulingController.registerOfficeScheduling);
+routes.put("/reunioes/:id", RoomSchedulingController.updateRoomScheduling);
+routes.delete("/reunioes/:id", RoomSchedulingController.deleteRoomScheduling);
 
 module.exports = routes;

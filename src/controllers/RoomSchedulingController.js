@@ -72,6 +72,36 @@ class RoomSchedulingController {
     }   
   }
 
+  static async updateRoomScheduling(req, res) {
+    const requestUpdateScheduling = req.body;
+    const { id } = req.params;
+    try {
+      await database.RoomScheduling.update(requestUpdateScheduling, {
+        where: { id: Number(id) },
+      });
+      const schedulingUpdated = await database.RoomScheduling.findOne({
+        where: { id: Number(id) },
+      });
+      return res.status(200).json(schedulingUpdated);
+    } catch (error) {
+      return res.status(500).json({mensagem: "Não foi possível atualizar este agendamento."});
+    }
+  }
+
+  static async deleteRoomScheduling (req, res) {
+    
+    const { id } = req.params;
+    try {
+      await database.RoomScheduling.destroy({
+        where: { id: Number(id) },
+      });
+      return res.status(200).json({ mensagem: `O agendamento com o id:${id} foi deletado.`});
+    } catch (error) {
+      return res.status(500).json({mensagem: "Não foi possível deletar este agendamento."});
+    }
+    }
+
+
 }
 
 module.exports = RoomSchedulingController;
