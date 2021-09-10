@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   OfficeScheduling.init({
     date: DataTypes.DATEONLY,
+    time_zone: DataTypes.INTEGER,
     room: DataTypes.STRING,
     office: DataTypes.STRING
   }, {
