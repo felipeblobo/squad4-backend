@@ -8,8 +8,32 @@ class RoomSchedulingController {
       const allRoomScheduling = await database.RoomScheduling.findAll();
       res.status(200).json(allRoomScheduling);
     } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível listar os agendamentos para reuniões."});
+      return res.status(404).json({mensagem: "Não foi possível listar os agendamentos para reuniões."});
     }
+  }
+
+
+  static async getRoomBydId(req, res) {
+    const { id } = req.params;
+    try {
+      const room = await database.RoomScheduling.findOne({where: { id: Number(id) }})
+      res.status(200).json(room);
+    } catch (error) {
+      res.status(404).json({ mensagem: "Não foi possível obter este agendamento." })
+    }
+  }
+
+
+  static async getRoomByUserId(req, res) {
+    const { id } = req.params;
+    try {
+      const room = await database.RoomScheduling.findAll({where: { user_id: Number(id) }})
+      res.status(200).json(room);
+    } catch (error) {
+      res.status(404).json({ mensagem: "Não foi possível obter este agendamento." })
+    }
+
+  
   }
 
   static async registerOfficeScheduling(req, res) {
@@ -30,7 +54,7 @@ class RoomSchedulingController {
     });
 
     if (BusySchedule.length > 0) {
-      return res.status(500).json({mensagem: "O usuário já agendou para data solicitada."})
+      return res.status(400).json({mensagem: "O usuário já agendou para data solicitada."})
     }
 
     const BusyRoom = await database.RoomScheduling.findAll({
@@ -45,7 +69,7 @@ class RoomSchedulingController {
     });
 
     if (BusyRoom.length > 0) {
-      return res.status(500).json({mensagem: "Esta sala já foi reservada para este horário."})
+      return res.status(400).json({mensagem: "Esta sala já foi reservada para este horário."})
     }
 
     const schedulingOnCertainDate =
@@ -95,7 +119,7 @@ class RoomSchedulingController {
       await database.RoomScheduling.destroy({
         where: { id: Number(id) },
       });
-      return res.status(200).json({ mensagem: `O agendamento com o id:${id} foi deletado.`});
+      return res.status(204).json({ mensagem: `O agendamento com o id:${id} foi deletado.`});
     } catch (error) {
       return res.status(500).json({mensagem: "Não foi possível deletar este agendamento."});
     }

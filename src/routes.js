@@ -13,6 +13,7 @@ routes.post("/login", UserController.login);
 routes.get("/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
 
 routes.get("/agendamentos", login, SchedulingController.listScheduling);
+routes.get("/agendamentos/:id", login, SchedulingController.listSchedulingById);
 routes.get(
   "/agendamentos/colaborador/:id", login,
   SchedulingController.listSchedulingByUserId,
@@ -22,9 +23,11 @@ routes.post("/agendamentos", login, SchedulingController.registerScheduling);
 routes.put("/agendamentos/:id", login, SchedulingController.updateScheduling);
 routes.delete("/agendamentos/:id", login, SchedulingController.deleteScheduling);
 
-routes.get("/reunioes", RoomSchedulingController.listRoomScheduling);
-routes.post("/reunioes", RoomSchedulingController.registerOfficeScheduling);
-routes.put("/reunioes/:id", RoomSchedulingController.updateRoomScheduling);
-routes.delete("/reunioes/:id", RoomSchedulingController.deleteRoomScheduling);
+routes.get("/reunioes", login, RoomSchedulingController.listRoomScheduling);
+routes.get("/reunioes/:id", login, RoomSchedulingController.getRoomBydId);
+routes.get("/reunioes/user/:id", login, RoomSchedulingController.getRoomByUserId);
+routes.post("/reunioes", login, RoomSchedulingController.registerOfficeScheduling);
+routes.put("/reunioes/:id", login, RoomSchedulingController.updateRoomScheduling);
+routes.delete("/reunioes/:id", login, RoomSchedulingController.deleteRoomScheduling);
 
 module.exports = routes;
