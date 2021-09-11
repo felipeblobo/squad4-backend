@@ -23,6 +23,18 @@ class SchedulingController {
     }
   }
 
+  static async listSchedulingById(req, res) {
+    const { id } = req.params;
+    try {
+      const scheduling = await database.Scheduling.findOne({
+        where: {id: Number(id)}
+      });
+      res.status(200).json(scheduling);
+    } catch (error) {
+      res.status(500).json({ mensagem: "Não foi possível localizar este agendamento."})
+    }
+  }
+
   static async registerScheduling(req, res) {
     const newScheduling = req.body;
     const dateScheduling = req.body.date;

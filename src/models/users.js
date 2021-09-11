@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Scheduling, {
         foreignKey: "user_id",
       });
+      this.hasMany(models.RoomScheduling, {
+        foreignKey: "user_id",
+      });
     }
   }
   Users.init(
@@ -26,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       password: DataTypes.STRING,
+      isVerified: DataTypes.BOOLEAN,
       isAdmin: DataTypes.BOOLEAN,
       role: DataTypes.STRING,
       squad: DataTypes.STRING,
