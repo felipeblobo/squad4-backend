@@ -20,7 +20,7 @@ routes.get(
   SchedulingController.listSchedulingByUserId,
 );
 routes.get("/api/v1/agendamentos/data", login, cors(), SchedulingController.schedulingByDate);
-routes.post("/api/v1/agendamentos", cors(), login, SchedulingController.registerScheduling);
+routes.post("/api/v1/agendamentos", cors(), SchedulingController.registerScheduling);
 routes.put("/api/v1/agendamentos/:id", login, cors(), SchedulingController.updateScheduling);
 routes.delete("/api/v1/agendamentos/:id", login, cors(), SchedulingController.deleteScheduling);
 
