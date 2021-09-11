@@ -3,6 +3,7 @@ const UserController = require("./controllers/UserController");
 const SchedulingController = require("./controllers/SchedulingController");
 const login = require('./middlewares/login');
 const RoomSchedulingController = require("./controllers/RoomSchedulingController");
+// const cors = require("cors");
 
 
 const routes = express.Router();
