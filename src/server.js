@@ -5,8 +5,8 @@ const server = express();
 const port = process.env.PORT || 8080;
 
 
-server.use(cors());
-// server.options('*', cors());
+// server.use(cors());
+server.options('*', cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(routes);

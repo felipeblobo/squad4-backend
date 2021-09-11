@@ -3,7 +3,7 @@ const UserController = require("./controllers/UserController");
 const SchedulingController = require("./controllers/SchedulingController");
 const login = require('./middlewares/login');
 const RoomSchedulingController = require("./controllers/RoomSchedulingController");
-// const cors = require("cors");
+const cors = require("cors");
 
 
 const routes = express.Router();
@@ -20,7 +20,7 @@ routes.get(
   "/api/v1/agendamentos/colaboradores/:id", login,   SchedulingController.listSchedulingByUserId,
 );
 routes.get("/api/v1/agendamentos/data", login, SchedulingController.schedulingByDate);
-routes.post("/api/v1/agendamentos", SchedulingController.registerScheduling);
+routes.post("/api/v1/agendamentos",  cors(), SchedulingController.registerScheduling);
 routes.put("/api/v1/agendamentos/:id", login, SchedulingController.updateScheduling);
 routes.delete("/api/v1/agendamentos/:id", login, SchedulingController.deleteScheduling);
 
