@@ -18,7 +18,7 @@ class UserController {
       return res.status(200).json(allUsers);
     } catch (error) {
       return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Não foi possível listar os colaboradores." });
     }
   }
@@ -33,7 +33,7 @@ class UserController {
       return res.status(200).json(user);
     } catch (error) {
       return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Não foi possível localizar este colaborador." });
     }
   }
@@ -50,7 +50,7 @@ class UserController {
 
     if (emailAlreadyExists) {
       return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Este email já existe em nosso cadastro." });
     }
 
@@ -69,7 +69,7 @@ class UserController {
         .json({ messagem: "Usuário cadastrado com sucesso!" });
     } catch (error) {
       return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Não foi possível cadastrar este colaborador." });
     }
   }
@@ -92,7 +92,7 @@ class UserController {
       return res.status(200).json(userUpdated);
     } catch (error) {
       return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Não foi possível verificar este usuário." });
     }
   }
@@ -113,7 +113,7 @@ class UserController {
 
       if(user.isVerified === false){
         return res
-        .status(500)
+        .status(404)
         .json({ mensagem: "Você não confirmou seu cadastro! Verifique seu email." });
       }
 

@@ -15,7 +15,7 @@ routes.get("/colaboradores/verificacao/:token", UserController.modifyUserWithVer
 routes.get("/agendamentos", login, SchedulingController.listScheduling);
 routes.get("/agendamentos/:id", login, SchedulingController.listSchedulingById);
 routes.get(
-  "/agendamentos/colaborador/:id", login,
+  "/agendamentos/colaboradores/:id", login,
   SchedulingController.listSchedulingByUserId,
 );
 routes.get("/agendamentos/data", login, SchedulingController.schedulingByDate);
@@ -25,7 +25,7 @@ routes.delete("/agendamentos/:id", login, SchedulingController.deleteScheduling)
 
 routes.get("/reunioes", login, RoomSchedulingController.listRoomScheduling);
 routes.get("/reunioes/:id", login, RoomSchedulingController.getRoomBydId);
-routes.get("/reunioes/user/:id", login, RoomSchedulingController.getRoomByUserId);
+routes.get("/reunioes/colaboradores/:id", login, RoomSchedulingController.getRoomByUserId);
 routes.post("/reunioes", login, RoomSchedulingController.registerOfficeScheduling);
 routes.put("/reunioes/:id", login, RoomSchedulingController.updateRoomScheduling);
 routes.delete("/reunioes/:id", login, RoomSchedulingController.deleteRoomScheduling);
