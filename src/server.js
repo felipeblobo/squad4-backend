@@ -4,9 +4,7 @@ const routes = require("./routes");
 const server = express();
 const port = process.env.PORT || 8080;
 
-server.use(cors({
-  origin: '*'
-}));
+server.use(cors({ origin: "https://orange-space.herokuapp.com/", credentials: true }))
 server.options('*', cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
