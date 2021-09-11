@@ -45,6 +45,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: true,
       },
+      first_access: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATEONLY,
