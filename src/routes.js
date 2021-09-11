@@ -13,7 +13,7 @@ routes.post("/api/v1/colaboradores", cors(), UserController.userRegistration);
 routes.post("/api/v1/login", cors(), UserController.login);
 routes.get("/api/v1/colaboradores/verificacao/:token", cors(), UserController.modifyUserWithVerifiedEmail);
 
-routes.get("/api/v1/agendamentos", login, cors(), SchedulingController.listScheduling);
+routes.get("/api/v1/agendamentos", cors(), SchedulingController.listScheduling);
 routes.get("/api/v1/agendamentos/:id", login, cors(), SchedulingController.listSchedulingById);
 routes.get(
   "/api/v1/agendamentos/colaboradores/:id", login, cors(),
