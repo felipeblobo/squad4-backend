@@ -8,10 +8,10 @@ const cors = require('cors');
 const routes = express.Router();
 
 routes.get("/api/v1/colaboradores", login, cors(), UserController.listUsers);
-routes.get("/api/v1/colaboradores/:id", login, UserController.userById);
-routes.post("/api/v1/colaboradores", UserController.userRegistration);
+routes.get("/api/v1/colaboradores/:id", login, cors(), UserController.userById);
+routes.post("/api/v1/colaboradores", cors(), UserController.userRegistration);
 routes.post("/api/v1/login", cors(), UserController.login);
-routes.get("/api/v1/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
+routes.get("/api/v1/colaboradores/verificacao/:token", cors(), UserController.modifyUserWithVerifiedEmail);
 
 routes.get("/api/v1/agendamentos", login, SchedulingController.listScheduling);
 routes.get("/api/v1/agendamentos/:id", login, SchedulingController.listSchedulingById);
@@ -20,7 +20,7 @@ routes.get(
   SchedulingController.listSchedulingByUserId,
 );
 routes.get("/api/v1/agendamentos/data", login, SchedulingController.schedulingByDate);
-routes.post("/api/v1/agendamentos", login, SchedulingController.registerScheduling);
+routes.post("/api/v1/agendamentos", cors(), login, SchedulingController.registerScheduling);
 routes.put("/api/v1/agendamentos/:id", login, SchedulingController.updateScheduling);
 routes.delete("/api/v1/agendamentos/:id", login, SchedulingController.deleteScheduling);
 
