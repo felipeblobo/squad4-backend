@@ -4,7 +4,12 @@ const routes = require("./routes");
 const server = express();
 const port = process.env.PORT || 8080;
 
-server.options('*', cors());
+server.options("/", cors(), function (req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "https://orange-space.herokuapp.com/");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.end();
+});
 server.use(cors({
   origin: "*"
 }));
