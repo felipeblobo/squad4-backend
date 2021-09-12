@@ -3,15 +3,14 @@ const UserController = require("./controllers/UserController");
 const SchedulingController = require("./controllers/SchedulingController");
 const login = require('./middlewares/login');
 const RoomSchedulingController = require("./controllers/RoomSchedulingController");
-const cors = require("cors");
-
+const cors = require('cors');
 
 const routes = express.Router();
 
 routes.get("/api/v1/colaboradores", login, UserController.listUsers);
 routes.get("/api/v1/colaboradores/:id", login, UserController.userById);
 routes.post("/api/v1/colaboradores", UserController.userRegistration);
-routes.post("/api/v1/login", UserController.login);
+routes.post("/api/v1/login", cors(), UserController.login);
 routes.get("/api/v1/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
 
 routes.get("/api/v1/agendamentos", SchedulingController.listScheduling);
