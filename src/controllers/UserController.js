@@ -39,6 +39,46 @@ class UserController {
   }
 
   static async userRegistration(req, res) {
+
+     // #swagger.tags = ['User']
+        // #swagger.description = 'Endpoint para cadastro de colaborador.'
+        /*         
+            #swagger.parameters['name'] = {
+               description: 'Nome do colaborador.',
+               type: 'string',
+                required: true
+        }                 
+        #swagger.parameters['email'] = { 
+          description: 'Email do usuário.',
+          required: true,
+          type: 'string',
+        }
+        
+          #swagger.parameters['password'] = {
+               description: 'Nome do colaborador.',
+                required: true,
+               type: 'string',
+        } 
+            #swagger.parameters['origin_office'] = {
+               description: 'Escritório de preferência do colaborador.',
+               type: 'string',
+              required: true
+        } 
+           #swagger.parameters['vaccine_status'] = {
+               description: 'Status de vacinação do colaborador',
+               type: 'boolean'
+        } 
+        
+           #swagger.parameters['role'] = {
+               description: 'Cargo do colaborador',
+               type: 'boolean'
+        } 
+        
+        
+        
+        
+        */
+
     const newUser = req.body;
     const password = req.body.password;
     const email = req.body.email;
@@ -82,7 +122,8 @@ class UserController {
         where: { id: Number(id) },
       });
       await database.Users.update(
-        { ...user, isVerified: true }, {
+        { ...user, isVerified: true },
+        {
           where: { id: Number(id) },
         }
       );
@@ -99,6 +140,26 @@ class UserController {
 
   static async login(req, res) {
     const { email, password } = req.body;
+      /*
+      #swagger.description = 'Endpoint para autenticação do colaborador.'
+      */
+
+      /*
+    #swagger.parameters['email'] = {
+    description: 'E-mail do colaborador.',
+      type: 'string',
+      required: true,
+      example: 'user@fcamara.com',
+    }
+
+    #swagger.parameters['password'] = {
+      description: 'Senha do colaborador.',
+      type: 'string',
+      required: true,
+      example: '5g6sdk7',
+      }
+    */
+
     try {
       const returningUser = await database.Users.findOne({
         attributes: {
@@ -111,10 +172,12 @@ class UserController {
         where: { email },
       });
 
-      if(user.isVerified === false){
+      if (user.isVerified === false) {
         return res
-        .status(404)
-        .json({ mensagem: "Você não confirmou seu cadastro! Verifique seu email." });
+          .status(404)
+          .json({
+            mensagem: "Você não confirmou seu cadastro! Verifique seu email.",
+          });
       }
 
       bcrypt.compare(password, user.dataValues.password, (err, data) => {

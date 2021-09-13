@@ -25,7 +25,9 @@
     },
     "/api/v1/colaboradores": {
       "get": {
-        "tags": [],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -41,9 +43,51 @@
         }
       },
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint para cadastro de colaborador.",
         "parameters": [
+          {
+            "name": "name",
+            "description": "Nome do colaborador.",
+            "type": "string",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "email",
+            "description": "Email do usuário.",
+            "required": true,
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "password",
+            "description": "Nome do colaborador.",
+            "required": true,
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "origin_office",
+            "description": "Escritório de preferência do colaborador.",
+            "type": "string",
+            "required": true,
+            "in": "query"
+          },
+          {
+            "name": "vaccine_status",
+            "description": "Status de vacinação do colaborador",
+            "type": "boolean",
+            "in": "query"
+          },
+          {
+            "name": "role",
+            "description": "Cargo do colaborador",
+            "type": "boolean",
+            "in": "query"
+          },
           {
             "name": "obj",
             "in": "body",
@@ -72,7 +116,9 @@
     },
     "/api/v1/colaboradores/{id}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -97,9 +143,27 @@
     },
     "/api/v1/login": {
       "post": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint para autenticação do colaborador.",
         "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail do colaborador.",
+            "type": "string",
+            "required": true,
+            "example": "user@fcamara.com",
+            "in": "query"
+          },
+          {
+            "name": "password",
+            "description": "Senha do colaborador.",
+            "type": "string",
+            "required": true,
+            "example": "5g6sdk7",
+            "in": "query"
+          },
           {
             "name": "obj",
             "in": "body",
@@ -131,7 +195,9 @@
     },
     "/api/v1/colaboradores/verificacao/{token}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -153,7 +219,9 @@
     },
     "/api/v1/agendamentos": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -166,7 +234,9 @@
         }
       },
       "post": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -203,7 +273,9 @@
     },
     "/api/v1/agendamentos/{id}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -226,7 +298,9 @@
         }
       },
       "put": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -249,7 +323,9 @@
         }
       },
       "delete": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -274,7 +350,9 @@
     },
     "/api/v1/agendamentos/colaboradores/{id}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -299,7 +377,9 @@
     },
     "/api/v1/agendamentos/data/{data}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Scheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -324,7 +404,9 @@
     },
     "/api/v1/reunioes": {
       "get": {
-        "tags": [],
+        "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -340,7 +422,9 @@
         }
       },
       "post": {
-        "tags": [],
+        "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -386,7 +470,9 @@
     },
     "/api/v1/reunioes/{id}": {
       "get": {
-        "tags": [],
+        "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -409,7 +495,9 @@
         }
       },
       "put": {
-        "tags": [],
+        "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -432,7 +520,9 @@
         }
       },
       "delete": {
-        "tags": [],
+        "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [
           {
@@ -457,7 +547,9 @@
     },
     "/api/v1/reunioes/colaboradores/{id}": {
       "get": {
-        "tags": [],
+         "tags": [
+          "RoomScheduling"
+        ],
         "description": "",
         "parameters": [
           {
