@@ -2,14 +2,14 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "API Orange Space",
+    "description": "Api para agendamento de estações de trabalho e sala de reuniões na FCamara - Formação e Consultoria."
   },
-  "host": "localhost:3000",
+  "host": "orange-space.herokuapp.com",
   "basePath": "/",
-  "tags": [],
+  "tags": ["FCamara", "Colaboradores"],
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [],
   "produces": [],
@@ -28,7 +28,7 @@
         "tags": [
           "User"
         ],
-        "description": "",
+        "description": "Lista todos os colaboradores cadastrados no sistema de agendamento.",
         "parameters": [],
         "responses": {
           "200": {
@@ -53,40 +53,52 @@
             "description": "Nome do colaborador.",
             "type": "string",
             "required": true,
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "email",
             "description": "Email do usuário.",
             "required": true,
             "type": "string",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "password",
             "description": "Nome do colaborador.",
             "required": true,
             "type": "string",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "origin_office",
             "description": "Escritório de preferência do colaborador.",
             "type": "string",
             "required": true,
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "vaccine_status",
             "description": "Status de vacinação do colaborador",
             "type": "boolean",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "role",
             "description": "Cargo do colaborador",
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "squad",
+            "description": "Squad do colaborador",
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "pwd",
+            "description": "Se o colaborador se enquadra como pessoa com deficiência (PcD)",
             "type": "boolean",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "obj",
@@ -94,11 +106,23 @@
             "schema": {
               "type": "object",
               "properties": {
-                "password": {
-                  "example": "any"
+                "name": {
+                  "example": "Felipe Lôbo"
                 },
                 "email": {
-                  "example": "any"
+                  "example": "felipe@fcamara.com"
+                },
+                "password": {
+                  "example": "5g6f7f"
+                },
+                "origin_office": {
+                  "example": "São Paulo"
+                },
+                "vaccine_status": {
+                  "example": true
+                },
+                "role": {
+                  "example": "Desenvolvedor Full Stack"
                 }
               }
             }
@@ -154,7 +178,7 @@
             "type": "string",
             "required": true,
             "example": "user@fcamara.com",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "password",
@@ -162,7 +186,7 @@
             "type": "string",
             "required": true,
             "example": "5g6sdk7",
-            "in": "query"
+              "in": "body"
           },
           {
             "name": "obj",
