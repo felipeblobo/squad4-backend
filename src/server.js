@@ -13,7 +13,9 @@ server.options("/", cors(), function (req, res) {
   res.end();
 });
 server.use(cors({
-  origin: "*"
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: true
 }));
 server.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerFile));
 server.use(express.urlencoded({ extended: true }));

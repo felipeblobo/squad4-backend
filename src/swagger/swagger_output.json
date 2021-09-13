@@ -53,8 +53,8 @@
         "tags": [
           "User"
         ],
-        "description": "Endpoint para cadastro de colaborador.",
         "summary": "Cadastrar Colaborador",
+        "description": "Endpoint para cadastro de colaborador.",
         "parameters": [
           {
             "name": "name",
@@ -177,7 +177,7 @@
           "User"
         ],
         "description": "Endpoint para obter colaborador por Id",
-        "summary": "Listar Colaborador por Id",
+        "summary": "Obter Colaborador por Id",
         "parameters": [
           {
             "name": "id",
@@ -258,7 +258,7 @@
           "User"
         ],
         "description": "Endpoint para verificação do token de colaborador cadastrado",
-        "summary": "Confirmação de Cadastro",
+        "summary": "Confirmar cadastro do colaborador",
         "parameters": [
           {
             "name": "token",
@@ -282,8 +282,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "Endpoint para listar agendamentos de workspaces",
-        "summary": "Listar todos os agendamentos",
+        "description": "Endpoint para listar agendamentos de estação de trabalhos",
+        "summary": "Listar todos os agendamentos de estações de trabalho",
         "parameters": [],
         "responses": {
           "200": {
@@ -298,7 +298,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para cadastrar agendamento de estação de trabalho.",
+        "summary": "Cadastrar agendamento de estação de trabalho",
         "parameters": [
           {
             "name": "obj",
@@ -338,7 +339,7 @@
           "Scheduling"
         ],
         "description": "Endpoint para obter agendamento por Id",
-        "summary": "Obter agendamento por Id",
+        "summary": "Obter agendamento por Id do agendamento",
         "parameters": [
           {
             "name": "id",
@@ -364,7 +365,7 @@
           "Scheduling"
         ],
         "description": "Endpoint para editar agendamento por Id",
-        "summary": "Editar agendamento por Id",
+        "summary": "Editar agendamento por Id do agendamento",
         "parameters": [
           {
             "name": "id",
@@ -390,7 +391,7 @@
           "Scheduling"
         ],
         "description": "Endpoint para deletar agendamento por Id",
-        "summary": "Deletar agendamento por Id",
+        "summary": "Deletar agendamento por Id do agendamento",
         "parameters": [
           {
             "name": "id",
@@ -418,7 +419,7 @@
           "Scheduling"
         ],
         "description": "Endpoint para obter agendamentos por Id do Colaborador",
-        "summary": "Agendamentos por Id do colaborador",
+        "summary": "Listar agendamentos por Id do colaborador",
         "parameters": [
           {
             "name": "id",
@@ -446,7 +447,7 @@
           "Scheduling"
         ],
         "description": "Endpoint para obter agendamentos por Data",
-        "summary": "Agendamento por Data",
+        "summary": "Listar agendamento por Data",
         "parameters": [
           {
             "name": "data",
@@ -541,7 +542,7 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "Endpoint para obter reunião po Id.",
+        "description": "Endpoint para obter reunião por Id da raunião.",
         "summary": "Obter reunião por Id",
         "parameters": [
           {
