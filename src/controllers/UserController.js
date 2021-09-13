@@ -72,11 +72,7 @@ class UserController {
            #swagger.parameters['role'] = {
                description: 'Cargo do colaborador',
                type: 'boolean'
-        } 
-        
-        
-        
-        
+        }         
         */
 
     const newUser = req.body;
