@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       origin_office: DataTypes.STRING,
       vaccine_status: DataTypes.BOOLEAN,
       pwd: DataTypes.STRING,
+      first_access: DataTypes.BOOLEAN,
     },
     {
       sequelize,

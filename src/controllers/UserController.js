@@ -146,6 +146,27 @@ class UserController {
       return res.status(401).json({ mensagem: "Senha ou login inválidos!" });
     }
   }
+
+  static async updateRegister(req, res) {
+    const { id } = req.params;
+    const requestUpdateRegister = req.body;
+    try {
+      await database.Users.update(
+        requestUpdateRegister, {
+          where: { id: Number(id) },
+        }
+      );
+      const userUpdated = await database.Users.findOne({
+        where: { id: Number(id) },
+      });
+      return res.status(200).json(userUpdated);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ mensagem: "Algo deu errado." });
+    }
+  }
+
 }
 
 module.exports = UserController;
