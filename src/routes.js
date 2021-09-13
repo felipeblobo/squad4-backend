@@ -9,6 +9,7 @@ const routes = express.Router();
 routes.get("/colaboradores", login, UserController.listUsers);
 routes.get("/colaboradores/:id", login, UserController.userById);
 routes.post("/colaboradores", UserController.userRegistration);
+routes.put("/login/firstaccess/:id", UserController.updateRegister);
 routes.post("/login", UserController.login);
 routes.get("/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
 
