@@ -123,21 +123,21 @@ class SchedulingController {
     }
     }
 
-
     static async schedulingByDate(req, res) {
-      const dateToQuery = '2021-09-07';
+      const data = req.params.data;
+      console.log(data)
       try {
         const schedulingOnCertainDate =
           await database.Scheduling.findAndCountAll({
             where: {
               date: {
-                [Op.eq]: dateToQuery
+                [Op.eq]: data
               }
             }
           });
         return res.status(200).json(schedulingOnCertainDate);
       } catch (error) {
-        return res.status(404).json(error.message);
+        return res.status(404).json({messagem: "Não foi possível obter os agendamentos para data solicitada."});
       }
     }
 
