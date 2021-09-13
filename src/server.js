@@ -7,15 +7,12 @@ const swaggerFile=require('./swagger/swagger_output.json');
 const swaggerUi = require("swagger-ui-express");
 
 server.options("/", cors(), function (req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "https://orange-space.herokuapp.com/");
   res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   res.end();
 });
 server.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: true
+  origin: "*"
 }));
 server.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerFile));
 server.use(express.urlencoded({ extended: true }));
