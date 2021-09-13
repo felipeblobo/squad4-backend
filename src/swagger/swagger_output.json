@@ -11,6 +11,12 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+    }},
   "consumes": [],
   "produces": [],
   "paths": {
@@ -28,6 +34,7 @@
         "tags": [
           "User"
         ],
+        "summary": "Listar Colaboradores",
         "description": "Lista todos os colaboradores cadastrados no sistema de agendamento.",
         "parameters": [],
         "responses": {
@@ -47,6 +54,7 @@
           "User"
         ],
         "description": "Endpoint para cadastro de colaborador.",
+        "summary": "Cadastrar Colaborador",
         "parameters": [
           {
             "name": "name",
@@ -138,12 +146,38 @@
         }
       }
     },
+    "/api/v1/login/firstaccess/{id}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "Editar dados do colaborador.",
+        "summary": "Editar colaborador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/v1/colaboradores/{id}": {
       "get": {
         "tags": [
           "User"
         ],
-        "description": "",
+        "description": "Endpoint para obter colaborador por Id",
+        "summary": "Listar Colaborador por Id",
         "parameters": [
           {
             "name": "id",
@@ -171,6 +205,7 @@
           "User"
         ],
         "description": "Endpoint para autenticação do colaborador.",
+        "summary": "Logar",
         "parameters": [
           {
             "name": "email",
@@ -222,7 +257,8 @@
         "tags": [
           "User"
         ],
-        "description": "",
+        "description": "Endpoint para verificação do token de colaborador cadastrado",
+        "summary": "Confirmação de Cadastro",
         "parameters": [
           {
             "name": "token",
@@ -246,7 +282,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para listar agendamentos de workspaces",
+        "summary": "Listar todos os agendamentos",
         "parameters": [],
         "responses": {
           "200": {
@@ -300,7 +337,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para obter agendamento por Id",
+        "summary": "Obter agendamento por Id",
         "parameters": [
           {
             "name": "id",
@@ -325,7 +363,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para editar agendamento por Id",
+        "summary": "Editar agendamento por Id",
         "parameters": [
           {
             "name": "id",
@@ -350,7 +389,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para deletar agendamento por Id",
+        "summary": "Deletar agendamento por Id",
         "parameters": [
           {
             "name": "id",
@@ -377,7 +417,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para obter agendamentos por Id do Colaborador",
+        "summary": "Agendamentos por Id do colaborador",
         "parameters": [
           {
             "name": "id",
@@ -404,7 +445,8 @@
         "tags": [
           "Scheduling"
         ],
-        "description": "",
+        "description": "Endpoint para obter agendamentos por Data",
+        "summary": "Agendamento por Data",
         "parameters": [
           {
             "name": "data",
@@ -431,7 +473,8 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para obter reuniões agendadas.",
+        "summary": "Listar reuniões",
         "parameters": [],
         "responses": {
           "200": {
@@ -449,7 +492,8 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para cadastrar reunião.",
+        "summary": "Cadastrar reunião",
         "parameters": [
           {
             "name": "obj",
@@ -497,7 +541,8 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para obter reunião po Id.",
+        "summary": "Obter reunião por Id",
         "parameters": [
           {
             "name": "id",
@@ -522,7 +567,8 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para editar reunião.",
+        "summary": "Editar reunião",
         "parameters": [
           {
             "name": "id",
@@ -547,7 +593,8 @@
         "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para deletar reunião.",
+        "summary": "Deletar reunião",
         "parameters": [
           {
             "name": "id",
@@ -574,7 +621,8 @@
          "tags": [
           "RoomScheduling"
         ],
-        "description": "",
+        "description": "Endpoint para listar reuniões por Id do colaborador.",
+        "summary": "Listar reuniões por Id do colaborador",
         "parameters": [
           {
             "name": "id",

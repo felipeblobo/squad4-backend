@@ -10,6 +10,7 @@ const routes = express.Router();
 routes.get("/api/v1/colaboradores", login, UserController.listUsers);
 routes.get("/api/v1/colaboradores/:id", login, UserController.userById);
 routes.post("/api/v1/colaboradores", UserController.userRegistration);
+routes.put("/api/v1/login/firstaccess/:id", UserController.updateRegister);
 routes.post("/api/v1/login", cors(), UserController.login);
 routes.get("/api/v1/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
 
