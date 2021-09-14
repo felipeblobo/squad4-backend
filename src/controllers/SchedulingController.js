@@ -125,7 +125,6 @@ class SchedulingController {
 
     static async schedulingByDate(req, res) {
       const data = req.params.data;
-      console.log(data)
       try {
         const schedulingOnCertainDate =
           await database.Scheduling.findAndCountAll({

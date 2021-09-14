@@ -125,6 +125,23 @@ class RoomSchedulingController {
     }
     }
 
+    static async roomSchedulingByDate(req, res) {
+      const data = req.params.data;
+      try {
+        const schedulingOnCertainDate =
+          await database.RoomScheduling.findAndCountAll({
+            where: {
+              date: {
+                [Op.eq]: data
+              }
+            }
+          });
+        return res.status(200).json(schedulingOnCertainDate);
+      } catch (error) {
+        return res.status(404).json({messagem: "Não foi possível obter as reuniões para data solicitada."});
+      }
+    }
+
 
 }
 
