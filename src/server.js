@@ -7,7 +7,6 @@ const swaggerFile=require('./swagger/swagger_output.json');
 const swaggerUi = require("swagger-ui-express");
 
 cors({credentials: true, origin: true});
-server.use(cors());
 server.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
@@ -15,6 +14,8 @@ server.use((req, res, next) => {
   res.header("Access-Controll-Allow-Credentials", "true");
   next();
 })
+
+server.use(cors());
 
 server.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerFile));
 server.use(express.urlencoded({ extended: true }));
