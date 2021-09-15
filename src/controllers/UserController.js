@@ -105,7 +105,6 @@ class UserController {
       const user = await database.Users.create(userWithEncryptedPassword);
       const address = addressGeneration("/colaboradores/verificacao/", user.id);
       const emailVerification = new RegisterConfirmation(user, address);
-      console.log(emailVerification);
       emailVerification.sendEmail().catch(console.log);
       return res
         .status(201)
