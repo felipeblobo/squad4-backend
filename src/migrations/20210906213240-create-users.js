@@ -23,7 +23,7 @@ module.exports = {
       },
       origin_office: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       vaccine_status: {
         type: Sequelize.BOOLEAN,
@@ -36,10 +36,6 @@ module.exports = {
       role: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      squad: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       pwd: {
         type: Sequelize.BOOLEAN,

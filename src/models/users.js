@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isEmail: {
             args: true,
-            msg: "Email de tipo inválido!"  
+            msg: "Email inválido!"  
           }
         }
       },
@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       isVerified: DataTypes.BOOLEAN,
       isAdmin: DataTypes.BOOLEAN,
       role: DataTypes.STRING,
-      squad: DataTypes.STRING,
       origin_office: DataTypes.STRING,
       vaccine_status: DataTypes.BOOLEAN,
       pwd: DataTypes.STRING,
