@@ -37,10 +37,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      squad: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       pwd: {
         type: Sequelize.BOOLEAN,
         allowNull: true,

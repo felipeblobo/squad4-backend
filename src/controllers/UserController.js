@@ -77,8 +77,15 @@ class UserController {
 
     const newUser = req.body;
     const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword
     const email = req.body.email;
     const encryptedPassword = await bcrypt.hash(password, 10);
+
+    if(password !== confirmPassword) {
+      return res
+          .status(400)
+          .json({ mensagem: "As senhas não correspondem."});
+    }
 
     const emailAlreadyExists = await database.Users.findOne({
       where: { email: email },
@@ -86,7 +93,7 @@ class UserController {
 
     if (emailAlreadyExists) {
       return res
-        .status(404)
+        .status(400)
         .json({ mensagem: "Este email já existe em nosso cadastro." });
     }
 
