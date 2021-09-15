@@ -19,7 +19,7 @@ class UserController {
     } catch (error) {
       return res
         .status(404)
-        .json({ mensagem: "Não foi possível listar os colaboradores." });
+        .json({ message: "Não foi possível listar os colaboradores." });
     }
   }
 
@@ -34,7 +34,7 @@ class UserController {
     } catch (error) {
       return res
         .status(404)
-        .json({ mensagem: "Não foi possível localizar este colaborador." });
+        .json({ message: "Não foi possível localizar este colaborador." });
     }
   }
 
@@ -78,13 +78,20 @@ class UserController {
     const newUser = req.body;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword
+    const validPassword = req.body.validPassword
     const email = req.body.email;
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     if(password !== confirmPassword) {
       return res
           .status(400)
-          .json({ mensagem: "As senhas não correspondem."});
+          .json({ message: "As senhas não correspondem."});
+    }
+
+    if(!validPassword) {
+      return res
+      .status(400)
+      .json({ message: "Reforce sua senha." })
     }
 
     const emailAlreadyExists = await database.Users.findOne({
@@ -94,12 +101,13 @@ class UserController {
     if (emailAlreadyExists) {
       return res
         .status(400)
-        .json({ mensagem: "Este email já existe em nosso cadastro." });
+        .json({ message: "Este email já existe em nosso cadastro." });
     }
 
     try {
       const userWithEncryptedPassword = {
         ...newUser,
+        first_access: true,
         password: encryptedPassword,
       };
       const user = await database.Users.create(userWithEncryptedPassword);
@@ -108,11 +116,11 @@ class UserController {
       emailVerification.sendEmail().catch(console.log);
       return res
         .status(201)
-        .json({ messagem: "Usuário cadastrado com sucesso!" });
+        .json({ message: "Usuário cadastrado com sucesso!" });
     } catch (error) {
       return res
         .status(404)
-        .json({ mensagem: "Não foi possível cadastrar este colaborador." });
+        .json({ message: "Não foi possível cadastrar este colaborador." });
     }
   }
 
@@ -136,7 +144,7 @@ class UserController {
     } catch (error) {
       return res
         .status(404)
-        .json({ mensagem: "Não foi possível verificar este usuário." });
+        .json({ message: "Não foi possível verificar este usuário." });
     }
   }
 
@@ -178,7 +186,7 @@ class UserController {
         return res
           .status(404)
           .json({
-            mensagem: "Você não confirmou seu cadastro! Verifique seu email.",
+            message: "Você não confirmou seu cadastro! Verifique seu email.",
           });
       }
 
@@ -197,18 +205,18 @@ class UserController {
             }
           );
           return res.status(200).json({
-            mensagem: "Login feito com sucesso",
+            message: "Login feito com sucesso",
             token,
             returningUser,
           });
         } else {
           return res
             .status(401)
-            .json({ mensagem: "Senha ou login inválidos!" });
+            .json({ message: "Senha ou login inválidos!" });
         }
       });
     } catch (error) {
-      return res.status(401).json({ mensagem: "Senha ou login inválidos!" });
+      return res.status(401).json({ message: "Senha ou login inválidos!" });
     }
   }
 
@@ -228,7 +236,7 @@ class UserController {
     } catch (error) {
       return res
         .status(500)
-        .json({ mensagem: "Algo deu errado." });
+        .json({ message: "Algo deu errado." });
     }
   }
 
