@@ -647,11 +647,8 @@
     },
     "/api/v1/reunioes/data/{data}": {
       "get": {
-        "tags": [
-          "RoomScheduling"
-        ],
-        "description": "Endpoint para listar reuniões por data.",
-        "summary": "Listar reuniões por data",
+        "tags": [],
+        "description": "",
         "parameters": [
           {
             "name": "data",
