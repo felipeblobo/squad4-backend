@@ -26,7 +26,7 @@ routes.delete("/api/v1/agendamentos/:id", login, SchedulingController.deleteSche
 routes.get("/api/v1/reunioes", login, RoomSchedulingController.listRoomScheduling);
 routes.get("/api/v1/reunioes/:id", login, RoomSchedulingController.getRoomBydId);
 routes.get("/api/v1/reunioes/colaboradores/:id", login, RoomSchedulingController.getRoomByUserId);
-routes.get("/api/v1/reunioes/data/:data", login, RoomSchedulingController.roomSchedulingByDate); 
+routes.get("/api/v1/reunioes/:data/:timezone", login, RoomSchedulingController.roomSchedulingByDate); 
 routes.post("/api/v1/reunioes", login, RoomSchedulingController.registerOfficeScheduling);
 routes.put("/api/v1/reunioes/:id", login, RoomSchedulingController.updateRoomScheduling);
 routes.delete("/api/v1/reunioes/:id", login, RoomSchedulingController.deleteRoomScheduling);

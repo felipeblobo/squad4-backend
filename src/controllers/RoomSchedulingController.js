@@ -1,5 +1,5 @@
 const database = require("../models");
-const { Op } = require("sequelize");
+const { Op, DataTypes } = require("sequelize");
 
 class RoomSchedulingController {
 
@@ -127,13 +127,15 @@ class RoomSchedulingController {
 
     static async roomSchedulingByDate(req, res) {
       const data = req.params.data;
+      const timezone = req.params.timezone;
       try {
         const schedulingOnCertainDate =
           await database.RoomScheduling.findAndCountAll({
             where: {
-              date: {
-                [Op.eq]: data
-              }
+              [Op.and]: [
+                { date: data },
+                { time_zone: timezone }
+              ]        
             }
           });
         return res.status(200).json(schedulingOnCertainDate);
