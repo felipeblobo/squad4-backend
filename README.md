@@ -1,5 +1,5 @@
 # Orange Space
- Api para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.
+ API Rest para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.
  
 ## Documentação
 
