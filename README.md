@@ -3,7 +3,7 @@
  
 ## Documentação
 
-É possível acessar a documentação do projeto pelo [Swagger](https://orange-space.herokuapp.com/docs/|)
+É possível acessar a documentação do projeto pelo [Swagger](https://orange-space.herokuapp.com/docs/|).
 
 ## Tecnologias
 
