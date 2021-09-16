@@ -5,6 +5,8 @@
 
 É possível acessar a documentação do projeto pelo [Swagger](https://orange-space.herokuapp.com/docs/|).
 
+ <img src="https://github.com/felipeblobo/squad4-backend/blob/master/postman_sample.PNG" alt="postman_sample" width="800">
+
 ## Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
