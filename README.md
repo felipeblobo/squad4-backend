@@ -6,7 +6,7 @@
   <img src='https://github.com/felipeblobo/squad4-backend/blob/master/AstronautCalendar.svg' width=250>
 </div>
 
- API Rest para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.
+ API Rest para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.Este Projeto desenvolvido pelo **squad 4** no hackathon do [Programa de Formação](https://digital.fcamara.com.br/programadeformacao) do [Grupo FCamara](https://www.fcamara.com.br/) onde criamos um sistema de login/registro para agendamento de idas ao ambiente de trabalho, apresentando todos os cuidados necessários para a volta do trabalho presencial.
  
 ## Documentação
 
