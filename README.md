@@ -1,4 +1,11 @@
-# Orange Space
+<div align='center'>
+  <img src='https://github.com/felipeblobo/squad4-backend/blob/master/BrandName.svg'>
+</div>
+
+<div align='center'>
+  <img src='https://github.com/felipeblobo/squad4-backend/blob/master/AstronautCalendar.svg' width=250>
+</div>
+
  API Rest para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.
  
 ## Documentação
