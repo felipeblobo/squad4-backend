@@ -1,0 +1,675 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Orange Space",
+    "description": "Api para agendamento de estações de trabalho e sala de reuniões na FCamara - Formação e Consultoria."
+  },
+  "host": "",
+  "basePath": "/",
+  "tags": ["FCamara", "Colaboradores"],
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+    }},
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/": {
+      "options": {
+        "tags": [],
+        "description": "",
+        "produces": [],
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/colaboradores": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Listar Colaboradores",
+        "description": "Lista todos os colaboradores cadastrados no sistema de agendamento.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Cadastrar Colaborador",
+        "description": "Endpoint para cadastro de colaborador.",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "Nome do colaborador.",
+            "type": "string",
+            "required": true,
+              "in": "body"
+          },
+          {
+            "name": "email",
+            "description": "Email do usuário.",
+            "required": true,
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "password",
+            "description": "Nome do colaborador.",
+            "required": true,
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "origin_office",
+            "description": "Escritório de preferência do colaborador.",
+            "type": "string",
+            "required": true,
+              "in": "body"
+          },
+          {
+            "name": "vaccine_status",
+            "description": "Status de vacinação do colaborador",
+            "type": "boolean",
+              "in": "body"
+          },
+          {
+            "name": "role",
+            "description": "Cargo do colaborador",
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "squad",
+            "description": "Squad do colaborador",
+            "type": "string",
+              "in": "body"
+          },
+          {
+            "name": "pwd",
+            "description": "Se o colaborador se enquadra como pessoa com deficiência (PcD)",
+            "type": "boolean",
+              "in": "body"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Felipe Lôbo"
+                },
+                "email": {
+                  "example": "felipe@fcamara.com"
+                },
+                "password": {
+                  "example": "5g6f7f"
+                },
+                "origin_office": {
+                  "example": "São Paulo"
+                },
+                "vaccine_status": {
+                  "example": true
+                },
+                "role": {
+                  "example": "Desenvolvedor Full Stack"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/login/firstaccess/{id}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "Editar dados do colaborador.",
+        "summary": "Editar colaborador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/colaboradores/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint para obter colaborador por Id",
+        "summary": "Obter Colaborador por Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint para autenticação do colaborador.",
+        "summary": "Logar",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "E-mail do colaborador.",
+            "type": "string",
+            "required": true,
+            "example": "user@fcamara.com",
+              "in": "body"
+          },
+          {
+            "name": "password",
+            "description": "Senha do colaborador.",
+            "type": "string",
+            "required": true,
+            "example": "5g6sdk7",
+              "in": "body"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/colaboradores/verificacao/{token}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Endpoint para verificação do token de colaborador cadastrado",
+        "summary": "Confirmar cadastro do colaborador",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/agendamentos": {
+      "get": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para listar agendamentos de estação de trabalhos",
+        "summary": "Listar todos os agendamentos de estações de trabalho",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para cadastrar agendamento de estação de trabalho.",
+        "summary": "Cadastrar agendamento de estação de trabalho",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "example": "any"
+                },
+                "office": {
+                  "example": "any"
+                },
+                "user_id": {
+                  "example": "any"
+                },
+                "workstation": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/agendamentos/{id}": {
+      "get": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para obter agendamento por Id",
+        "summary": "Obter agendamento por Id do agendamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para editar agendamento por Id",
+        "summary": "Editar agendamento por Id do agendamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para deletar agendamento por Id",
+        "summary": "Deletar agendamento por Id do agendamento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/agendamentos/colaboradores/{id}": {
+      "get": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para obter agendamentos por Id do Colaborador",
+        "summary": "Listar agendamentos por Id do colaborador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/agendamentos/data/{data}": {
+      "get": {
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "Endpoint para obter agendamentos por Data",
+        "summary": "Listar agendamento por Data",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/reunioes": {
+      "get": {
+        "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para obter reuniões agendadas.",
+        "summary": "Listar reuniões",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para cadastrar reunião.",
+        "summary": "Cadastrar reunião",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "example": "any"
+                },
+                "office": {
+                  "example": "any"
+                },
+                "user_id": {
+                  "example": "any"
+                },
+                "room": {
+                  "example": "any"
+                },
+                "time_zone": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/reunioes/{id}": {
+      "get": {
+        "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para obter reunião por Id da raunião.",
+        "summary": "Obter reunião por Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para editar reunião.",
+        "summary": "Editar reunião",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para deletar reunião.",
+        "summary": "Deletar reunião",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/reunioes/colaboradores/{id}": {
+      "get": {
+         "tags": [
+          "RoomScheduling"
+        ],
+        "description": "Endpoint para listar reuniões por Id do colaborador.",
+        "summary": "Listar reuniões por Id do colaborador",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/reunioes/data/{data}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}

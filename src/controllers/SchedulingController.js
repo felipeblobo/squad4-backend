@@ -7,7 +7,7 @@ class SchedulingController {
       const allScheduling = await database.Scheduling.findAll();
       res.status(200).json(allScheduling);
     } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível listar os agendamentos."});
+      return res.status(404).json({mensagem: "Não foi possível listar os agendamentos."});
     }
   }
 
@@ -19,7 +19,7 @@ class SchedulingController {
       });
       return res.status(200).json(scheduling);
     } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível listar os agendamentos deste colaborador."});
+      return res.status(404).json({mensagem: "Não foi possível listar os agendamentos deste colaborador."});
     }
   }
 
@@ -31,7 +31,7 @@ class SchedulingController {
       });
       res.status(200).json(scheduling);
     } catch (error) {
-      res.status(500).json({ mensagem: "Não foi possível localizar este agendamento."})
+      res.status(404).json({ mensagem: "Não foi possível localizar este agendamento."})
     }
   }
 
@@ -52,7 +52,7 @@ class SchedulingController {
     });
 
     if (BusySchedule.length > 0) {
-      return res.status(500).json({mensagem: "O usuário já agendou para data solicitada."})
+      return res.status(404).json({mensagem: "O usuário já agendou para data solicitada."})
     }
 
     const BusyWorkstation = await database.Scheduling.findAll({
@@ -66,7 +66,7 @@ class SchedulingController {
     });
 
     if (BusyWorkstation.length > 0) {
-      return res.status(500).json({mensagem: "Esta estação de trabalho já foi reservada."})
+      return res.status(404).json({mensagem: "Esta estação de trabalho já foi reservada."})
     }
 
     const schedulingOnCertainDate =
@@ -86,10 +86,10 @@ class SchedulingController {
         const scheduling = await database.Scheduling.create(newScheduling);
         return res.status(201).json(scheduling);
       } catch (error) {
-        return res.status(500).json({mensagem: "Não foi possível realizar este agendamento."});
+        return res.status(404).json({mensagem: "Não foi possível realizar este agendamento."});
       }
     } else {
-      return res.status(500).json({mensagem: "Não há mais vagas disponíveis para o dia solicitado."})
+      return res.status(404).json({mensagem: "Não há mais vagas disponíveis para o dia solicitado."})
     }   
   }
 
@@ -105,7 +105,7 @@ class SchedulingController {
       });
       return res.status(200).json(schedulingUpdated);
     } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível atualizar este agendamento."});
+      return res.status(404).json({mensagem: "Não foi possível atualizar este agendamento."});
     }
   }
 
@@ -119,25 +119,24 @@ class SchedulingController {
       });
       return res.status(200).json({ mensagem: `O agendamento com o id:${id} foi deletado.`});
     } catch (error) {
-      return res.status(500).json({mensagem: "Não foi possível deletar este agendamento."});
+      return res.status(404).json({mensagem: "Não foi possível deletar este agendamento."});
     }
     }
-
 
     static async schedulingByDate(req, res) {
-      const dateToQuery = '2021-09-07';
+      const data = req.params.data;
       try {
         const schedulingOnCertainDate =
           await database.Scheduling.findAndCountAll({
             where: {
               date: {
-                [Op.eq]: dateToQuery
+                [Op.eq]: data
               }
             }
           });
         return res.status(200).json(schedulingOnCertainDate);
       } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(404).json({messagem: "Não foi possível obter os agendamentos para data solicitada."});
       }
     }
 

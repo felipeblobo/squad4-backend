@@ -6,28 +6,29 @@ const RoomSchedulingController = require("./controllers/RoomSchedulingController
 
 const routes = express.Router();
 
-routes.get("/colaboradores", login, UserController.listUsers);
-routes.get("/colaboradores/:id", login, UserController.userById);
-routes.post("/colaboradores", UserController.userRegistration);
-routes.post("/login", UserController.login);
-routes.get("/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
+routes.get("/api/v1/colaboradores", login, UserController.listUsers);
+routes.get("/api/v1/colaboradores/:id", login, UserController.userById);
+routes.post("/api/v1/colaboradores", UserController.userRegistration);
+routes.put("/api/v1/login/firstaccess/:id", UserController.updateRegister);
+routes.post("/api/v1/login", UserController.login);
+routes.get("/api/v1/colaboradores/verificacao/:token", UserController.modifyUserWithVerifiedEmail);
 
-routes.get("/agendamentos", login, SchedulingController.listScheduling);
-routes.get("/agendamentos/:id", login, SchedulingController.listSchedulingById);
+routes.get("/api/v1/agendamentos", SchedulingController.listScheduling);
+routes.get("/api/v1/agendamentos/:id", login, SchedulingController.listSchedulingById);
 routes.get(
-  "/agendamentos/colaborador/:id", login,
-  SchedulingController.listSchedulingByUserId,
+  "/api/v1/agendamentos/colaboradores/:id", login,   SchedulingController.listSchedulingByUserId,
 );
-routes.get("/agendamentos/data", login, SchedulingController.schedulingByDate);
-routes.post("/agendamentos", login, SchedulingController.registerScheduling);
-routes.put("/agendamentos/:id", login, SchedulingController.updateScheduling);
-routes.delete("/agendamentos/:id", login, SchedulingController.deleteScheduling);
+routes.get("/api/v1/agendamentos/data/:data", login, SchedulingController.schedulingByDate);  
+routes.post("/api/v1/agendamentos", SchedulingController.registerScheduling);
+routes.put("/api/v1/agendamentos/:id", login, SchedulingController.updateScheduling);
+routes.delete("/api/v1/agendamentos/:id", login, SchedulingController.deleteScheduling);
 
-routes.get("/reunioes", login, RoomSchedulingController.listRoomScheduling);
-routes.get("/reunioes/:id", login, RoomSchedulingController.getRoomBydId);
-routes.get("/reunioes/user/:id", login, RoomSchedulingController.getRoomByUserId);
-routes.post("/reunioes", login, RoomSchedulingController.registerOfficeScheduling);
-routes.put("/reunioes/:id", login, RoomSchedulingController.updateRoomScheduling);
-routes.delete("/reunioes/:id", login, RoomSchedulingController.deleteRoomScheduling);
+routes.get("/api/v1/reunioes", login, RoomSchedulingController.listRoomScheduling);
+routes.get("/api/v1/reunioes/:id", login, RoomSchedulingController.getRoomBydId);
+routes.get("/api/v1/reunioes/colaboradores/:id", login, RoomSchedulingController.getRoomByUserId);
+routes.get("/api/v1/reunioes/:data/:timezone", login, RoomSchedulingController.roomSchedulingByDate); 
+routes.post("/api/v1/reunioes", login, RoomSchedulingController.registerOfficeScheduling);
+routes.put("/api/v1/reunioes/:id", login, RoomSchedulingController.updateRoomScheduling);
+routes.delete("/api/v1/reunioes/:id", login, RoomSchedulingController.deleteRoomScheduling);
 
 module.exports = routes;

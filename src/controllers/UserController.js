@@ -18,8 +18,8 @@ class UserController {
       return res.status(200).json(allUsers);
     } catch (error) {
       return res
-        .status(500)
-        .json({ mensagem: "Não foi possível listar os colaboradores." });
+        .status(404)
+        .json({ message: "Não foi possível listar os colaboradores." });
     }
   }
 
@@ -33,16 +33,66 @@ class UserController {
       return res.status(200).json(user);
     } catch (error) {
       return res
-        .status(500)
-        .json({ mensagem: "Não foi possível localizar este colaborador." });
+        .status(404)
+        .json({ message: "Não foi possível localizar este colaborador." });
     }
   }
 
   static async userRegistration(req, res) {
+
+     // #swagger.tags = ['User']
+        // #swagger.description = 'Endpoint para cadastro de colaborador.'
+        /*         
+            #swagger.parameters['name'] = {
+               description: 'Nome do colaborador.',
+               type: 'string',
+                required: true
+        }                 
+        #swagger.parameters['email'] = { 
+          description: 'Email do usuário.',
+          required: true,
+          type: 'string',
+        }
+        
+          #swagger.parameters['password'] = {
+               description: 'Nome do colaborador.',
+                required: true,
+               type: 'string',
+        } 
+            #swagger.parameters['origin_office'] = {
+               description: 'Escritório de preferência do colaborador.',
+               type: 'string',
+              required: true
+        } 
+           #swagger.parameters['vaccine_status'] = {
+               description: 'Status de vacinação do colaborador',
+               type: 'boolean'
+        } 
+        
+           #swagger.parameters['role'] = {
+               description: 'Cargo do colaborador',
+               type: 'boolean'
+        }         
+        */
+
     const newUser = req.body;
     const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword
+    const validPassword = req.body.validPassword
     const email = req.body.email;
     const encryptedPassword = await bcrypt.hash(password, 10);
+
+    if(password !== confirmPassword) {
+      return res
+          .status(400)
+          .json({ message: "As senhas não correspondem."});
+    }
+
+    if(!validPassword) {
+      return res
+      .status(400)
+      .json({ message: "Reforce sua senha." })
+    }
 
     const emailAlreadyExists = await database.Users.findOne({
       where: { email: email },
@@ -50,27 +100,27 @@ class UserController {
 
     if (emailAlreadyExists) {
       return res
-        .status(500)
-        .json({ mensagem: "Este email já existe em nosso cadastro." });
+        .status(400)
+        .json({ message: "Este email já existe em nosso cadastro." });
     }
 
     try {
       const userWithEncryptedPassword = {
         ...newUser,
+        first_access: true,
         password: encryptedPassword,
       };
       const user = await database.Users.create(userWithEncryptedPassword);
       const address = addressGeneration("/colaboradores/verificacao/", user.id);
       const emailVerification = new RegisterConfirmation(user, address);
-      console.log(emailVerification);
       emailVerification.sendEmail().catch(console.log);
       return res
         .status(201)
-        .json({ messagem: "Usuário cadastrado com sucesso!" });
+        .json({ message: "Usuário cadastrado com sucesso!" });
     } catch (error) {
       return res
-        .status(500)
-        .json({ mensagem: "Não foi possível cadastrar este colaborador." });
+        .status(404)
+        .json({ message: "Não foi possível cadastrar este colaborador." });
     }
   }
 
@@ -82,7 +132,8 @@ class UserController {
         where: { id: Number(id) },
       });
       await database.Users.update(
-        { ...user, isVerified: true }, {
+        { ...user, isVerified: true },
+        {
           where: { id: Number(id) },
         }
       );
@@ -92,13 +143,33 @@ class UserController {
       return res.status(200).json(userUpdated);
     } catch (error) {
       return res
-        .status(500)
-        .json({ mensagem: "Não foi possível verificar este usuário." });
+        .status(404)
+        .json({ message: "Não foi possível verificar este usuário." });
     }
   }
 
   static async login(req, res) {
     const { email, password } = req.body;
+      /*
+      #swagger.description = 'Endpoint para autenticação do colaborador.'
+      */
+
+      /*
+    #swagger.parameters['email'] = {
+    description: 'E-mail do colaborador.',
+      type: 'string',
+      required: true,
+      example: 'user@fcamara.com',
+    }
+
+    #swagger.parameters['password'] = {
+      description: 'Senha do colaborador.',
+      type: 'string',
+      required: true,
+      example: '5g6sdk7',
+      }
+    */
+
     try {
       const returningUser = await database.Users.findOne({
         attributes: {
@@ -111,10 +182,12 @@ class UserController {
         where: { email },
       });
 
-      if(user.isVerified === false){
+      if (user.isVerified === false) {
         return res
-        .status(500)
-        .json({ mensagem: "Você não confirmou seu cadastro! Verifique seu email." });
+          .status(404)
+          .json({
+            message: "Você não confirmou seu cadastro! Verifique seu email.",
+          });
       }
 
       bcrypt.compare(password, user.dataValues.password, (err, data) => {
@@ -132,20 +205,41 @@ class UserController {
             }
           );
           return res.status(200).json({
-            mensagem: "Login feito com sucesso",
+            message: "Login feito com sucesso",
             token,
             returningUser,
           });
         } else {
           return res
             .status(401)
-            .json({ mensagem: "Senha ou login inválidos!" });
+            .json({ message: "Senha ou login inválidos!" });
         }
       });
     } catch (error) {
-      return res.status(401).json({ mensagem: "Senha ou login inválidos!" });
+      return res.status(401).json({ message: "Senha ou login inválidos!" });
     }
   }
+
+  static async updateRegister(req, res) {
+    const { id } = req.params;
+    const requestUpdateRegister = req.body;
+    try {
+      await database.Users.update(
+        requestUpdateRegister, {
+          where: { id: Number(id) },
+        }
+      );
+      const userUpdated = await database.Users.findOne({
+        where: { id: Number(id) },
+      });
+      return res.status(200).json(userUpdated);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: "Algo deu errado." });
+    }
+  }
+
 }
 
 module.exports = UserController;
