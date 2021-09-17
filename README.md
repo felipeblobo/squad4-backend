@@ -8,6 +8,8 @@
 
  API Rest para agendamento de estações de trabalho e salas de reuniões na FCamara - Formação e Consultoria.Este Projeto desenvolvido pelo **squad 4** no hackathon do [Programa de Formação](https://digital.fcamara.com.br/programadeformacao) do [Grupo FCamara](https://www.fcamara.com.br/) onde criamos um sistema de login/registro para agendamento de idas ao ambiente de trabalho, apresentando todos os cuidados necessários para a volta do trabalho presencial.
  
+ Saiba mais sobre o projeto [aqui](https://acbragab.medium.com/orange-space-encarando-o-novo-normal-na-reabertura-dos-escrit%C3%B3rios-e821808cf311).
+ 
 ## Documentação
 
 É possível acessar a documentação do projeto pelo [Swagger](https://orange-space.herokuapp.com/docs/|).
