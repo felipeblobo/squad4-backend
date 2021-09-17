@@ -9,7 +9,7 @@ module.exports = {
         {
           type: Sequelize.BOOLEAN,
           allowNull: true,
-          defaultValue: false
+          defaultValue: true
         },
       )
     ]);
