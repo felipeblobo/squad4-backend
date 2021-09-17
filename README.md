@@ -22,7 +22,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 ##  Como executar
 
 - Clone o repositório
-- Instale as dependências com `npm`
+- Instale as dependências com `npm install`
 - Adicione as variáveis de ambiente requisitadas conforme instruções do arquivo .env.sample
 - Inicie o servidor com `npm run dev`
 
