@@ -5,7 +5,7 @@
     "title": "API Orange Space",
     "description": "Api para agendamento de estações de trabalho e sala de reuniões na FCamara - Formação e Consultoria."
   },
-  "host": "",
+  "host": "https://orange-space.herokuapp.com/",
   "basePath": "/",
   "tags": ["FCamara", "Colaboradores"],
   "schemes": [
